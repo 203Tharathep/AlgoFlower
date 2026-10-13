@@ -1,0 +1,695 @@
+/* =========================================================
+   STYLE.CSS — Flora Atelier: บรรยากาศร้านจัดดอกไม้มินิมอล อบอุ่น
+   ========================================================= */
+:root {
+  --shop-wall: #fdfbf7;
+  --wall-brick: rgba(222, 210, 195, 0.25);
+  --wood-light: #e6ccb2;
+  --wood-main: #b08968;
+  --wood-dark: #7f5539;
+  --sage: #709775;
+  --sage-dark: #415d43;
+  --sage-light: #e8f0e9;
+  --petal-pink: #e07a5f;
+  --petal-soft: #fdf3ef;
+  --card-bg: #ffffff;
+  --text-main: #3d405b;
+  --text-muted: #6c757d;
+  --border: #e9decb;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+
+body {
+  font-family: 'Prompt', sans-serif;
+  background-color: var(--shop-wall);
+  background-image: 
+    radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.8) 0%, rgba(247, 241, 230, 0.9) 100%),
+    linear-gradient(rgba(180, 160, 135, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(180, 160, 135, 0.08) 1px, transparent 1px);
+  background-size: 100% 100%, 36px 36px, 36px 36px;
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   กันสาดหน้าร้านดอกไม้ (Florist Shop Awning)
+   ========================================================= */
+.shop-awning {
+  width: 100%;
+  max-width: 960px;
+  height: 28px;
+  display: flex;
+  box-shadow: 0 6px 12px rgba(65, 93, 67, 0.12);
+  margin-bottom: 8px;
+  border-radius: 0 0 12px 12px;
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.awning-stripe {
+  flex: 1;
+  height: 100%;
+  border-radius: 0 0 8px 8px;
+}
+
+.awning-stripe:nth-child(odd) {
+  background: var(--sage);
+}
+
+.awning-stripe:nth-child(even) {
+  background: #fdfbf7;
+}
+
+.shop-wrapper {
+  width: 100%;
+  max-width: 920px;
+  padding: 0 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* =========================================================
+   ป้ายร้านดอกไม้ (Wooden Florist Plaque)
+   ========================================================= */
+.shop-sign {
+  text-align: center;
+  margin-bottom: 1.2rem;
+  position: relative;
+  width: 100%;
+}
+
+.hanging-leaves {
+  position: absolute;
+  top: 5px;
+  font-size: 1.2rem;
+  opacity: 0.85;
+}
+
+.hanging-leaves.left { left: 15px; }
+.hanging-leaves.right { right: 15px; }
+
+@media (max-width: 600px) {
+  .hanging-leaves { display: none; }
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--sage-dark);
+  background: var(--sage-light);
+  border: 1px solid rgba(112, 151, 117, 0.3);
+  border-radius: 999px;
+  margin-bottom: 6px;
+}
+
+h1 {
+  font-size: 1.95rem;
+  font-weight: 600;
+  color: #2b2d42;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   การ์ดตัวร้านหลัก (Shop Interior Floor)
+   ========================================================= */
+.card.shop-interior {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 1.6rem;
+  box-shadow: 0 10px 30px rgba(130, 100, 70, 0.08);
+}
+
+/* =========================================================
+   แดชบอร์ดคะแนนและเวลา (Real-time Score & Timer Dashboard)
+   ========================================================= */
+.score-dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 1.2rem;
+}
+
+@media (max-width: 640px) {
+  .score-dashboard { grid-template-columns: repeat(2, 1fr); }
+}
+
+.score-card {
+  background: linear-gradient(180deg, #ffffff 0%, #fbf8f2 100%);
+  border: 1px solid #decab0;
+  border-radius: 12px;
+  padding: 8px 12px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.sc-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.sc-val {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2b2d42;
+}
+
+/* =========================================================
+   กล่องกติกาชัดเจน (Clear Rules Box)
+   ========================================================= */
+.rules-box {
+  background: #f4faf6;
+  border: 1px solid rgba(112, 151, 117, 0.35);
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-bottom: 1.2rem;
+}
+
+.rules-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--sage-dark);
+  margin-bottom: 6px;
+}
+
+.rules-tag {
+  font-size: 0.7rem;
+  background: #d1fae5;
+  color: #065f46;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.rules-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rule-item {
+  font-size: 0.8rem;
+  color: #374151;
+  line-height: 1.4;
+}
+
+/* แถบตั้งค่าบนเคาน์เตอร์ */
+.config-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fbf8f2;
+  border: 1px solid #efe5d4;
+  border-radius: 14px;
+  padding: 10px 16px;
+  margin-bottom: 1.4rem;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.config-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.btn-toggle {
+  border: 1px solid #d9ccb9;
+  background: #ffffff;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-main);
+  transition: all 0.2s;
+}
+
+.btn-toggle.active {
+  background: var(--sage);
+  color: #ffffff;
+  border-color: var(--sage-dark);
+  box-shadow: 0 2px 6px rgba(112, 151, 117, 0.3);
+}
+
+.select-box {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #d9ccb9;
+  font-family: inherit;
+  font-size: 0.85rem;
+  background: #ffffff;
+  color: var(--text-main);
+}
+
+/* =========================================================
+   โต๊ะจัดดอกไม้ไม้สน (Florist Workbenches)
+   ========================================================= */
+.arena-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 1.4rem;
+}
+
+@media (max-width: 768px) {
+  .arena-grid { grid-template-columns: 1fr; }
+}
+
+.florist-table {
+  background: linear-gradient(180deg, #fbf7f0 0%, #f4ede2 100%);
+  border: 1px solid #decab0;
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(255,255,255,0.8), 0 4px 10px rgba(140, 110, 80, 0.05);
+}
+
+.col-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2b2d42;
+  margin-bottom: 10px;
+}
+
+.status-pill {
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #e9decb;
+  color: #78716c;
+}
+
+.status-pill.running {
+  background: #fed7aa;
+  color: #c2410c;
+}
+
+.status-pill.finished {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+/* ท็อปโต๊ะไม้จริง (Wooden Table Plank) */
+.shelf.wood-shelf {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 10px;
+  min-height: 195px;
+  background: linear-gradient(180deg, #ffffff 0%, #fdfcf9 80%, #f7f1e6 100%);
+  border: 1px solid #decab0;
+  border-radius: 12px;
+  padding: 16px 8px 12px;
+  border-bottom: 10px solid var(--wood-main);
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.02), 0 3px 6px rgba(0,0,0,0.04);
+  flex-grow: 1;
+}
+
+.col-foot {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 10px;
+}
+
+/* =========================================================
+   แจกันดอกไม้เซรามิกและกิ่งดอกไม้ (Vases & Blooms)
+   ========================================================= */
+.flower-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34, 1.4, 0.64, 1);
+  position: relative;
+}
+
+.flower-item:hover {
+  transform: translateY(-6px);
+}
+
+.bloom-icon {
+  font-size: 1.85rem;
+  line-height: 1;
+  z-index: 2;
+  margin-bottom: -3px;
+  filter: drop-shadow(0 3px 4px rgba(0,0,0,0.08));
+}
+
+.flower-stem {
+  width: 4px;
+  background: linear-gradient(180deg, #81b29a 0%, #52796f 100%);
+  border-radius: 2px;
+  transition: height 0.25s ease;
+}
+
+.ceramic-vase {
+  width: 46px;
+  background: linear-gradient(180deg, #ffffff 0%, #f4ede2 100%);
+  border: 2px solid #decab0;
+  border-radius: 8px 8px 14px 14px;
+  padding: 5px 2px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(100, 75, 50, 0.06), inset 0 1px 2px rgba(255,255,255,0.8);
+  margin-top: -2px;
+  transition: all 0.2s;
+}
+
+.vase-height {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #3d405b;
+}
+
+.flower-idx {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+/* สถานะไฮไลต์ของแจกัน */
+.player-col .flower-item.selected .ceramic-vase {
+  border-color: var(--petal-pink);
+  background: var(--petal-soft);
+  box-shadow: 0 0 12px rgba(224, 122, 95, 0.45);
+  transform: translateY(-6px);
+}
+
+.bot-col .flower-item.comparing .ceramic-vase {
+  border-color: #f59e0b;
+  background: #fef3c7;
+  transform: translateY(-6px);
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+}
+
+.bot-col .flower-item.swapping .ceramic-vase {
+  border-color: #ef4444;
+  background: #fee2e2;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.4);
+}
+
+.flower-item.sorted .ceramic-vase {
+  border-color: var(--sage);
+  background: var(--sage-light);
+}
+
+.flower-item.sorted::before {
+  content: '✓';
+  position: absolute;
+  top: -18px;
+  color: var(--sage-dark);
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+/* =========================================================
+   แผงเปรียบเทียบสถิติการสลับ (Swap Comparison Styles)
+   ========================================================= */
+.swap-compare-box {
+  background: #fbf7f0;
+  border: 1px solid #decab0;
+  border-radius: 14px;
+  padding: 12px 16px;
+  margin-bottom: 1.3rem;
+  box-shadow: 0 2px 6px rgba(100, 75, 50, 0.03);
+}
+
+.swap-compare-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.diff-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 2px 10px;
+  border-radius: 999px;
+}
+
+.diff-badge.equal {
+  background: #e5e7eb;
+  color: #4b5563;
+}
+
+.diff-badge.better {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.diff-badge.worse {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.swap-bars-track {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.swap-bar-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.swap-bar-label {
+  font-size: 0.78rem;
+  color: #4b5563;
+}
+
+.bar-meter-bg {
+  width: 100%;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar-meter-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.bar-meter-fill.player-fill {
+  background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.bar-meter-fill.bot-fill {
+  background: linear-gradient(90deg, #f97316, #ea580c);
+}
+
+.swap-divider {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #9ca3af;
+  padding: 0 4px;
+}
+
+.swap-analysis-text {
+  font-size: 0.78rem;
+  color: #6b7280;
+  line-height: 1.4;
+  background: #ffffff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px dashed #d1c7b7;
+}
+
+/* =========================================================
+   ปุ่มควบคุมหน้าร้าน (Florist Action Buttons)
+   ========================================================= */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 1.3rem;
+}
+
+.btn {
+  padding: 10px 24px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 12px;
+  border: 1px solid #d9ccb9;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--petal-pink) 0%, #cb684d 100%);
+  color: #ffffff;
+  border-color: #cb684d;
+  box-shadow: 0 4px 10px rgba(224, 122, 95, 0.25);
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(224, 122, 95, 0.35);
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: var(--text-main);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #fbf7f0;
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =========================================================
+   กระดานชอล์กเมนูของร้าน (Chalkboard Menu Style)
+   ========================================================= */
+.theory-box.blackboard-menu {
+  background: #2b303a;
+  border: 4px solid #b08968;
+  border-radius: 14px;
+  padding: 14px 18px;
+  color: #e9ecef;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.06);
+}
+
+.theory-box.blackboard-menu h3 {
+  font-size: 0.9rem;
+  color: #f4a261;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.theory-box.blackboard-menu p {
+  font-size: 0.85rem;
+  color: #ced4da;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   หน้าต่างสรุปผลและแจกแจงคะแนน (Modal & Breakdown)
+   ========================================================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(43, 45, 66, 0.35);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  padding: 1rem;
+}
+
+.modal.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-box.shop-modal {
+  background: #ffffff;
+  border: 2px solid var(--border);
+  border-radius: 22px;
+  padding: 2rem;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(80, 50, 30, 0.15);
+}
+
+.modal-box.shop-modal h2 {
+  font-size: 1.45rem;
+  color: #2b2d42;
+  margin-bottom: 4px;
+}
+
+.modal-box.shop-modal p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.result-breakdown {
+  background: #fbf7f0;
+  border: 1px solid #decab0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  color: #2b2d42;
+  margin-top: 14px;
+  text-align: left;
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px dashed #e6ccb2;
+}
+
+.breakdown-row:last-child {
+  border-bottom: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--petal-pink);
+  margin-top: 4px;
+  padding-top: 6px;
+}

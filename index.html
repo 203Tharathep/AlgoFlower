@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flora Duel — ร้านดอกไม้ Flora Atelier จัดแจกันแข่งกับ Algorithm Bot</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- กันสาดหน้าร้านดอกไม้ (Florist Shop Awning) -->
+  <div class="shop-awning">
+    <div class="awning-stripe"></div><div class="awning-stripe"></div>
+    <div class="awning-stripe"></div><div class="awning-stripe"></div>
+    <div class="awning-stripe"></div><div class="awning-stripe"></div>
+    <div class="awning-stripe"></div><div class="awning-stripe"></div>
+    <div class="awning-stripe"></div><div class="awning-stripe"></div>
+    <div class="awning-stripe"></div><div class="awning-stripe"></div>
+  </div>
+
+  <div class="shop-wrapper">
+    <!-- ป้ายร้านดอกไม้ (Wooden Plaque Sign) -->
+    <header class="shop-sign">
+      <div class="hanging-leaves left">🌿 🌸</div>
+      <div class="hanging-leaves right">🌸 🌿</div>
+      <span class="badge">💐 BOTANICAL FLORIST ATELIER</span>
+      <h1>Flora Atelier : Duel Arena</h1>
+      <p class="subtitle">โต๊ะจัดดอกไม้หน้าร้าน — ประลองความเร็วจัดแจกันจากเตี้ยไปสูง แข่งกับ Algorithm Bot</p>
+    </header>
+
+    <main class="card shop-interior">
+
+      <!-- แดชบอร์ดสรุปคะแนนและเวลาแบบเรียลไทม์ -->
+      <div class="score-dashboard">
+        <div class="score-card">
+          <span class="sc-label">🌟 คะแนนสะสม (Score)</span>
+          <span class="sc-val" id="totalScore">1,000</span>
+        </div>
+        <div class="score-card">
+          <span class="sc-label">⏱️ เวลาแข่งขัน (Time)</span>
+          <span class="sc-val" id="raceTimer">0.0s</span>
+        </div>
+        <div class="score-card">
+          <span class="sc-label">🔄 คุณสลับไป (Swaps)</span>
+          <span class="sc-val" id="playerSwapCount">0</span>
+        </div>
+        <div class="score-card">
+          <span class="sc-label">🤖 บอทสลับไป (Bot)</span>
+          <span class="sc-val" id="botSwapCount">0</span>
+        </div>
+      </div>
+
+      <!-- กล่องกติกาและเงื่อนไขแพ้ชนะชัดเจน (Game Rules & Conditions) -->
+      <div class="rules-box">
+        <div class="rules-header">
+          <span>📜 กติกาและเงื่อนไขการแพ้ชนะ (Game Rules)</span>
+          <span class="rules-tag">เล่นได้ตั้งแต่เริ่มจนจบ</span>
+        </div>
+        <div class="rules-content">
+          <div class="rule-item">
+            <b>1. เป้าหมาย:</b> จัดเรียงแจกันดอกไม้ 6 ใบให้มีความสูง <b>จากเตี้ยไปสูง (ซ้าย ➔ ขวา)</b>
+          </div>
+          <div class="rule-item">
+            <b>2. วิธีเล่น:</b> คลิกเลือกแจกันใบแรก แล้วคลิกใบที่สองเพื่อ <b>สลับตำแหน่ง (Swap)</b>
+          </div>
+          <div class="rule-item">
+            <b>3. ผลแพ้ชนะ:</b> ใครจัดเรียงครบถูกต้องก่อนเป็นฝ่ายชนะ! (ชนะได้ <b>+500 แต้ม</b> + โบนัสความเร็ว / แพ้บอทเสีย <b>-200 แต้ม</b>)
+          </div>
+        </div>
+      </div>
+
+      <!-- แถบตั้งค่าการแข่งขันในร้าน -->
+      <div class="config-bar">
+        <div class="config-group">
+          <label>🌿 เลือกคู่แข่ง:</label>
+          <button class="btn-toggle active" id="btnBotBubble" onclick="chooseBot('bubble')">🌷 Bubble Bot</button>
+          <button class="btn-toggle" id="btnBotSelect" onclick="chooseBot('selection')">🌻 Selection Bot</button>
+        </div>
+
+        <div class="config-group">
+          <label>⏱️ ความเร็ว AI:</label>
+          <select id="botSpeed" class="select-box">
+            <option value="650">ช้า (ฝึกซ้อมสังเกตสเต็ป)</option>
+            <option value="420" selected>ปานกลาง (กำลังสนุก)</option>
+            <option value="260">เร็ว (ท้าทายฝีมือ)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- สนามประลอง: โต๊ะจัดดอกไม้ไม้จริง 2 ตัว -->
+      <div class="arena-grid">
+        <!-- ฝั่งโต๊ะของผู้เล่น -->
+        <div class="arena-col player-col florist-table">
+          <div class="col-head">
+            <span>🧑‍🌾 โต๊ะจัดดอกไม้ของคุณ <small style="font-weight: normal; color: #78716c;">(คลิก 2 ใบเพื่อสลับ)</small></span>
+            <span class="status-pill" id="playerStatus">รอกดเริ่ม</span>
+          </div>
+          <div class="shelf wood-shelf" id="playerShelf"></div>
+          <div class="col-foot">
+            <span>สถานะ: <b id="playerSortHint">ยังไม่เรียง</b></span>
+            <span>สลับ: <b id="footPlayerSwaps">0</b> ครั้ง</span>
+          </div>
+        </div>
+
+        <!-- ฝั่งโต๊ะของ AI Bot -->
+        <div class="arena-col bot-col florist-table">
+          <div class="col-head">
+            <span id="botTitle">🤖 โต๊ะจัดดอกไม้ของ Bubble Bot</span>
+            <span class="status-pill" id="botStatus">รอกดเริ่ม</span>
+          </div>
+          <div class="shelf wood-shelf" id="botShelf"></div>
+          <div class="col-foot">
+            <span id="botStepText">กำลังรอกดปล่อยตัว...</span>
+            <span>สลับ: <b id="footBotSwaps">0</b> ครั้ง | เทียบ: <b id="botComps">0</b></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- แผงเปรียบเทียบสถิติการสลับแบบสดๆ (Live Swap Statistics Comparison) -->
+      <div class="swap-compare-box">
+        <div class="swap-compare-header">
+          <span style="font-weight: 600; font-size: 0.88rem; color: #3d405b;">📊 เปรียบเทียบสถิติการสลับ (Swap Comparison)</span>
+          <span class="diff-badge equal" id="swapDiffBadge">สลับเท่ากัน (0 vs 0)</span>
+        </div>
+        <div class="swap-bars-track">
+          <div class="swap-bar-side">
+            <span class="swap-bar-label">🧑‍🌾 คุณ: <b id="compPlayerVal">0</b> ครั้ง</span>
+            <div class="bar-meter-bg">
+              <div class="bar-meter-fill player-fill" id="playerBarFill" style="width: 50%;"></div>
+            </div>
+          </div>
+          <div class="swap-divider">VS</div>
+          <div class="swap-bar-side">
+            <span class="swap-bar-label">🤖 บอท: <b id="compBotVal">0</b> ครั้ง</span>
+            <div class="bar-meter-bg">
+              <div class="bar-meter-fill bot-fill" id="botBarFill" style="width: 50%;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="swap-analysis-text" id="swapAnalysisText">
+          💡 สรุปการเปรียบเทียบ: รอกดเริ่มแข่งเพื่อวัดความสามารถในการสลับตำแหน่งระหว่างมนุษย์กับอัลกอริทึม
+        </div>
+      </div>
+
+      <!-- ปุ่มควบคุมการแข่งขัน -->
+      <div class="controls">
+        <button class="btn btn-primary" id="btnStart" onclick="startRace()">🏁 เริ่มจัดดอกไม้ประลองความเร็ว!</button>
+        <button class="btn btn-secondary" onclick="resetDuel()">↻ สุ่มดอกไม้ชุดใหม่</button>
+      </div>
+
+      <!-- กล่องอธิบายการทำงานของบอทตรงหน้า -->
+      <div class="theory-box blackboard-menu">
+        <h3 id="botExplainTitle">📋 กระดานสังเกตขั้นตอนของ Bubble Bot</h3>
+        <p id="botExplainBody">
+          สังเกตที่โต๊ะของบอท: บอทจะไฮไลต์แจกันคู่ที่อยู่ติดกันทีละคู่ หากใบซ้ายสูงกว่าใบขวา บอทจะสลับเพื่อดันแจกันสูงไปท้ายแถว
+        </p>
+      </div>
+    </main>
+  </div>
+
+  <!-- หน้าต่างแจ้งผลแพ้ชนะและสรุปคะแนนละเอียด -->
+  <div class="modal" id="resultModal">
+    <div class="modal-box shop-modal">
+      <div id="resultIcon" style="font-size: 3rem; margin-bottom: 6px;">💐</div>
+      <h2 id="resultTitle">คุณชนะแล้ว!</h2>
+      <p id="resultDesc">คุณจัดแจกันดอกไม้เสร็จเร็วกว่าบอท ยอดเยี่ยมมาก!</p>
+      
+      <!-- แจกแจงคะแนนชัดเจน (Score Breakdown) -->
+      <div class="result-breakdown" id="resultBreakdown"></div>
+
+      <button class="btn btn-primary" style="width: 100%; margin-top: 15px;" onclick="closeModal()">
+        🌸 เล่นรอบถัดไป / ประลองใหม่
+      </button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
